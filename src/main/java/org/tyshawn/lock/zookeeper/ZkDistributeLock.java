@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
  * @author litianxiang
  * @date 2020/3/12 16:08
  */
-public class ZkDistrubuteLock {
-	private static Logger logger = LoggerFactory.getLogger(ZkDistrubuteLock.class);
+public class ZkDistributeLock {
+	private static Logger logger = LoggerFactory.getLogger(ZkDistributeLock.class);
 
 	/**
 	 * 分布式锁的根节点路径
@@ -44,7 +44,7 @@ public class ZkDistrubuteLock {
 	 * @param host zk服务地址
 	 * @param lockName 分布式锁名
 	 */
-	public ZkDistrubuteLock(String host, String lockName) {
+	public ZkDistributeLock(String host, String lockName) {
 		try {
 			CountDownLatch connectedSignal = new CountDownLatch(1);
 			zk = new ZooKeeper(host, 5000, new Watcher() {
@@ -132,17 +132,17 @@ public class ZkDistrubuteLock {
 			executorService.execute(new Runnable() {
 				@Override
 				public void run() {
-					ZkDistrubuteLock zkDistrubuteLock = new ZkDistrubuteLock("xxx.xx.xx.xxx:2181", "myLock");
+					ZkDistributeLock zkDistributeLock = new ZkDistributeLock("xxx.xx.xx.xxx:2181", "myLock");
 
 					//获取锁, 没有获取到锁就一直等待
-					zkDistrubuteLock.getLock();
+					zkDistributeLock.getLock();
 					try {
 						logger.info(Thread.currentThread().getName() + " 进行扣减库存操作...");
 					} catch (Exception e) {
 						logger.error("处理业务逻辑报错", e);
 					}finally {
 						//释放锁
-						zkDistrubuteLock.releaseLock();
+						zkDistributeLock.releaseLock();
 					}
 				}
 			});
