@@ -39,6 +39,7 @@ public class RedisDistributeLock {
 			params.px(expireTime);
 			params.nx();
 			while (true) {
+				// 旧版本的Jedis使用命令: String result = jedis.set(key, value, "NX", "PX", 100);
 				String result = jedis.set(key, value, params);
 				if ("OK".equals(result)) {
 					return;
@@ -48,7 +49,6 @@ public class RedisDistributeLock {
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
-
 	}
 
 	/**
