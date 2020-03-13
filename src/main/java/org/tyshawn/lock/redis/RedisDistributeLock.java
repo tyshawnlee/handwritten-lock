@@ -13,6 +13,7 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.params.SetParams;
 
 /**
+ * redis分布式锁
  * @author litianxiang
  * @date 2020/3/13 10:33
  */
