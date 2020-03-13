@@ -66,7 +66,7 @@ public class RedisDistributeLock {
 			executorService.execute(new Runnable() {
 				@Override
 				public void run() {
-					RedisDistributeLock redisDistributeLock = new RedisDistributeLock("114.55.27.138");
+					RedisDistributeLock redisDistributeLock = new RedisDistributeLock("xxx.xx.xx.xxx");
 
 					//获取锁, 没有获取到锁就继续尝试获取锁
 					String key = "my_lock";
